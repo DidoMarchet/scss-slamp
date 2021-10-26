@@ -6,14 +6,10 @@
   ],
   "main": "./dist/index.scss",
   "style": "./dist/index.scss",
-  "dependencies": {
-    "sass-unitconverter": "^2.5.2"
-  },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-load-plugins": "^2.0.6",
-    "gulp-sass": "^5.0.0"
+    "gulp-load-plugins": "^2.0.6"
   },
   "scripts": {
     "build": "gulp"
@@ -24,7 +20,7 @@
     "Scss clamp",
     "Scss slope"
   ],
-  "description": "Three scss mixins to quickly master responsive and fluid content and to make it look good on any screen.",
+  "description": "",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DidoMarchet/scss-slamp.git"
@@ -34,5 +30,8 @@
   "bugs": {
     "url": "https://github.com/DidoMarchet/scss-slamp/issues"
   },
-  "homepage": "https://github.com/DidoMarchet/scss-slamp#readme"
+  "homepage": "https://github.com/DidoMarchet/scss-slamp#readme",
+  "dependencies": {
+    "sass-unitconverter": "^2.5.2"
+  }
 }
