@@ -39,7 +39,7 @@ $slamp_limits: (
 );
 ```
 
-You can specify limits using **various units of measure**  (px, em, rem, %, vw [...]) and they will be **converted in rem**.
+You can specify limits using **various units of measure**  (px, em, rem, %, vw [...]).
 
 # Usage
 The function takes four parameters (two required) and returns a `clamp` statement with an interpolated "preferred" value.
