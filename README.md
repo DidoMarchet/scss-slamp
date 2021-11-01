@@ -44,11 +44,12 @@ You can specify limits using **various units** of measure (px, em, rem, %, vw [.
 # Usage
 The function takes four parameters
 ``` scss
-/// @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null)
+/// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
 /// @param {String} $minSize - required - the min size of the property (px, em, rem, %, vw [...])
 /// @param {String} $maxSize - required - the max size of the property (px, em, rem, %, vw [...])
 /// @param {String} $minLimit - optional - the min limit if different from default (px, em, rem, %, vw [...])
 /// @param {String} $maxLimit - optional - the max limit if different from default (px, em, rem, %, vw [...])
+/// @return clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
 
 .my-class{
   padding: slamp(25px, 50px) slamp(50px, 75px);
