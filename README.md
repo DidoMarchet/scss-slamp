@@ -30,7 +30,7 @@ $defaults_slamp_limits: (
 );
 ```
 
-Using the `$slamp_limits` variable in your scss stylesheet you can **override** the default limits:
+Using the `$slamp_limits` variable in your scss stylesheet you can **override** the defaults:
 
 ``` scss
 $slamp_limits: (
