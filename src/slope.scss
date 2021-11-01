@@ -1,9 +1,10 @@
 /// Inspired by https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
-/// @author Davide Marchet
-/// @param {String} $minSize - value of the min size of the property
-/// @param {String} $maxSize - value of the max size of the property
-/// @param {String} $minLimit - OPTIONAL value of the min limit
-/// @param {String} $maxLimit - OPTIONAL value of the max limit
+/// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
+/// @param {String} $minSize - required - the min size of the property (px, em, rem, %, vw [...])
+/// @param {String} $maxSize - required - the max size of the property (px, em, rem, %, vw [...])
+/// @param {String} $minLimit - optional - the min limit if different from default (px, em, rem, %, vw [...])
+/// @param {String} $maxLimit - optional - the max limit if different from default (px, em, rem, %, vw [...])
+/// @return clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
 
 @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null) {  
   $merged: map-merge($defaults_slamp_limits, $slamp_limits);
