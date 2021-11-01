@@ -39,10 +39,10 @@ $slamp_limits: (
 );
 ```
 
-You can specify limits using **various units** of measure (px, em, rem, %, vw [...]) and they will be **converted in rem**.
+You can specify limits using **various units of measure**  (px, em, rem, %, vw [...]) and they will be **converted in rem**.
 
 # Usage
-The function takes four parameters
+The function takes four parameters (two required) and returns a `clamp` statement with an interpolated "preferred" value.
 ``` scss
 /// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
 /// @param {String} $minSize - required - the min size of the property (px, em, rem, %, vw [...])
