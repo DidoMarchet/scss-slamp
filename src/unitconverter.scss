@@ -349,7 +349,8 @@ $unit-options-map: (
     $input: 0px + math.div(num($input) * $root-size, 1px);
   }
   @if index(rem, $unit) and not unitless($input) {
-    $input: 0px + $input;
+    // $input: 0px + $input; removing px allows me to use % values
+    $input: 0 + $input;
     $input: math.div(num($input) * 1px, $root-size);
   }
 
