@@ -19,7 +19,7 @@ and include it using an **@import** statement:
 ```
 
 # Setup
-First of all we set up the **minimum** and **maximum** viewport widths by which will be calculated the intermediate values.
+First of all we set up the **minimum** and **maximum** viewport sizes by which will be calculated the intermediate values.
 
 The library comes with two default limits:
 
@@ -39,23 +39,41 @@ $slamp_limits: (
 );
 ```
 
-You can specify limits using **various units of measure**  (px, em, rem, %, vw [...]).
+You can specify limits using **various units of measure**  (px, em, rem, vw, % [...]);
 
 # Usage
-The function takes four parameters (two required) and returns a `clamp` statement with an interpolated "preferred" value.
+The function takes as parameters:
+
+- `$minSize` - required - the lower bound (px, em, rem, vw, % [...]);
+- `$maxSize` - required - the upper bound (px, em, rem, vw, % [...]);
+- `$minSize` - optional - the minimum viewport width (px, em, rem, vw, % [...]);
+- `$maxSize` - optional - the maximum viewport width (px, em, rem, vw, % [...]);
+
+It returns a `clamp` statement with an interpolated "preferred" value.
+
+The arguments of the statement are expressed in `rem` because it's relative to the root avoiding compounding issues.
+
+### Example
 ``` scss
-/// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
-/// @param {String} $minSize - required - the min size of the property (px, em, rem, %, vw [...])
-/// @param {String} $maxSize - required - the max size of the property (px, em, rem, %, vw [...])
-/// @param {String} $minLimit - optional - the min limit if different from default (px, em, rem, %, vw [...])
-/// @param {String} $maxLimit - optional - the max limit if different from default (px, em, rem, %, vw [...])
-/// @return clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
+/// @param {String} $minSize - required - the min size of the property (px, em, rem, vw, % [...])
+/// @param {String} $maxSize - required - the max size of the property (px, em, rem, vw, % [...])
+/// @param {String} $minLimit - optional - the min limit if different from default (px, em, rem, vw, % [...])
+/// @param {String} $maxLimit - optional - the max limit if different from default (px, em, rem, vw, % [...])
+/// @return {String} - clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
 
 .my-class{
   padding: slamp(25px, 50px) slamp(50px, 75px);
-  font-size: slamp(1.25rem, 2.75rem, 768px, 1920px);
+  font-size: slamp(1.25rem, 2.75rem, 768px, 1920px); // $defaults_slamp_limits and $slamp_limits are overrided
 }
 
+/// @output A generate css clamp() function
+/*
+.my-class {
+  padding: clamp(1.5625 rem, 0.8928571429 rem + 2.2321428571 vw, 3.125 rem)
+    clamp(3.125 rem, 2.4553571429 rem + 2.2321428571 vw, 4.6875 rem);
+  font-size: clamp(1.25rem, 0.25rem + 2.0833333333vw, 2.75rem);
+}
+*/
 ```
 
 
