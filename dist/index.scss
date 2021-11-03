@@ -241,7 +241,7 @@ $unit-options-map: (
 @function one-unit($input) {
   $type: type-of($input);
   @if $type == 'number' {
-    @return ($input / num($input));
+    @return math.div($input, num($input));
   }
   @if $type != 'string' {
     @error 'Value for `unit` should be a number or string.';
@@ -323,7 +323,7 @@ $unit-options-map: (
   // $input is VW, VH, VMIN, VMAX using px as base
   @if index(vw vh vmin vmax, unit($input)) {
     $break: get-break(unit($input), $width, $height, $options);
-    $input: ($break * num($input)) / 100;
+    $input: ($break * num($input)) * 0.01;
   }
 
   // $unit is VW, VH, VMIN, VNAX using px as base
@@ -331,25 +331,25 @@ $unit-options-map: (
     $break: num(get-break($unit, $width, $height, $options));
     $input: num(px($input, $options));
     $input: if($break == 0, 0,
-    ($input / $break) * 100);
+    math.div($input, $break) * 100);
   }
 
   // EM convertion using px as base
   @if index(em, unit($input)) {
-    $input: 0 + num($input) * $base-size/1px;
+    $input: 0 + math.div(num($input) * $base-size, 1px);
   }
   @if index(em, $unit) and not unitless($input) {
     $input: 0 + px($input);
-    $input: num($input) * 1px/$base-size;
+    $input: math.div(num($input) * 1px, $base-size);
   }
 
   // REM convertion using px as base
   @if index(rem, unit($input)) {
-    $input: 0 + num($input) * $root-size/1px;
+    $input: 0 + math.div(num($input) * $root-size, 1px);
   }
   @if index(rem, $unit) and not unitless($input) {
     $input: 0 + $input;
-    $input: num($input) * 1px/$root-size;
+    $input: math.div(num($input) * 1px, $root-size);
   }
 
   // Bug fix – resolution units seems to be flipped
@@ -420,16 +420,16 @@ $unit-options-map: (
     $n: $x; $y: 1;
     @while $y < 10 {
       $x:  $n * 10 - ((10 - $y) * $n);
-      @if $x == round($x){ @return #{$x}/#{$y}; }
+      @if $x == round($x){ @return list.slash($x, $y); }
       @else { $y: $y + 1; }
     }
     $x: round($n * 1000000); $y: 1000000;
-    @while $x % 10 == 0 { $x: $x/10; $y: $y/10; }
-    @while $x % 5 == 0 { $x: $x/5; $y: $y/5; }
-    @while $x % 2 == 0 { $x: $x/2; $y: $y/2; }
-    @return #{$x}/#{$y};
+    @while $x % 10 == 0 { $x: $x*0.1; $y: $y*0.1; }
+    @while $x % 5 == 0 { $x: $x*0.2; $y: $y*0.2; }
+    @while $x % 2 == 0 { $x: $x*0.5; $y: $y*0.5; }
+    @return list.slash($x, $y);
   }
-  @else if $x == round($x) and $y == round($y){ @return #{$x}/#{$y}; }
+  @else if $x == round($x) and $y == round($y){ @return list.slash($x, $y); }
   @warn 'X and Y must be integers'; @return false;
 }
 
@@ -449,7 +449,7 @@ $unit-options-map: (
   // Adjust for compounds (visual size)
   @if length($input) > 1 {
     @for $i from 2 through length($input) {
-      $em: $em / num(em(nth($input, $i), $options));
+      $em: math.div($em, num(em(nth($input, $i), $options)));
     }
   }
   @return $em;
@@ -492,7 +492,7 @@ $unit-options-map: (
 @function num($input) {
   @if is-num($input) { @return $input; }
   @if type-of($input) == 'number' and not unitless($input) {
-    @return $input / ($input * 0 + 1);
+    @return math.div($input, $input * 0 + 1);
   } @else if type-of($input) != 'string' {
     @error 'Could not convert `#{$input}` - must be `type-of number or a string.`';
     @return null;
@@ -513,7 +513,7 @@ $unit-options-map: (
         $result: $result * 10 + map-get($numbers, $character);
       } @else {
         $digits: $digits * 10;
-        $result: $result + map-get($numbers, $character) / $digits;
+        $result: $result + math.div(map-get($numbers, $character), $digits);
       }
     }
   }
