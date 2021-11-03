@@ -3,6 +3,7 @@
 - [Options](#options)
 - [Usage](#usage)
 - [Example](#example)
+- [Thanks](#thanks)
 
 Install the package via npm:
 
@@ -73,7 +74,7 @@ selector{
 
 ❗ The generated arguments of the `clamp` statement are expressed in `rem` because it's relative to the root **avoiding compounding issues**.
 
-### Example
+# Example
 ``` scss
 .my-class{
   padding: slamp(25px, 50px) slamp(50px, 75px);
@@ -95,3 +96,4 @@ h2 {
 */
 ```
 
+# Thanks
