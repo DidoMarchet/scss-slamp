@@ -7,7 +7,7 @@ But it's **hard to define the preferred value** used as long as the result is be
 
 Adding the slope of linear functions to clamp **we enhance the rule with a little bit of mathematics**!
 
-This is how `slamp()` works: **s~~lope~~** + **~c~lamp** = **slamp**.
+This is how `slamp()` works: **s**~~lope~~ + ~c~**lamp** = **slamp**.
 
 Basically that mean you don't going to make up clamp's preferred values anymore.
 
