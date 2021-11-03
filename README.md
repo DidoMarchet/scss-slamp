@@ -19,21 +19,23 @@ and include it using an **@import** statement:
 ```
 
 # Setup
-First of all we set up the **minimum** and **maximum** viewport sizes by which will be calculated the intermediate values.
+First of all we set up the **root-size**, **minimum** and **maximum** viewport sizes by which will be calculated the intermediate values.
 
 The library comes with two default limits:
 
 ``` scss
-$defaults_slamp_limits: (
+$defaults_slamp_options: (
+  "root-size": 16px, 
   "min": 480px, 
   "max": 1600px
 );
 ```
 
-Using the `$slamp_limits` variable in your scss stylesheet you can **override** the defaults:
+Using the `$slamp_limits` variable in your scss stylesheet you can **override** each defaults:
 
 ``` scss
-$slamp_limits: (
+$slamp_options: (
+  "root-size": 10px, 
   "min": 768px,
   "max": 1920px
 );
