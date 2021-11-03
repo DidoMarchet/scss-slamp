@@ -1,7 +1,7 @@
 # scss-slamp
 ### Table of content:
-- [Usage](#usage)
 - [Options](#options)
+- [Usage](#usage)
 
 Install the package via npm:
 
@@ -18,6 +18,31 @@ and include it using an **@import** statement:
 /// [...]
 ```
 
+# Options
+The library comes with three default options:
+
+``` scss
+$defaults_slamp_options: (
+  "root-size": 16px, 
+  "min": 480px, 
+  "max": 1600px
+);
+```
+
+- `root-size` - represents the calculation base for `rem` expressed in `px`;
+- `min` - the minimun viewport width (px, em, rem, vw, % [...]);
+- `max` - the maximum viewport width (px, em, rem, vw, % [...]).
+
+Using the `$slamp_limits` variable in your scss stylesheet you can **override** each defaults:
+
+``` scss
+$slamp_options: (
+  "root-size": 10px, 
+  "min": 768px,
+  "max": 1920px
+);
+```
+
 # Usage
 
 ``` scss
@@ -32,8 +57,8 @@ The function takes as parameters:
 
 - `$minSize` - required - the lower bound (px, em, rem, vw, % [...]);
 - `$maxSize` - required - the upper bound (px, em, rem, vw, % [...]);
-- `$minLimit` - optional - the minimum viewport width (px, em, rem, vw, % [...]);
-- `$maxLimit` - optional - the maximum viewport width (px, em, rem, vw, % [...]).
+- `$minLimit` - optional - override the default minimum viewport width (px, em, rem, vw, % [...]);
+- `$maxLimit` - optional - override the default maximum viewport width (px, em, rem, vw, % [...]).
 
 It returns a `clamp` statement with an interpolated "preferred" value.
 
@@ -60,30 +85,5 @@ The arguments of the `clamp` statement are expressed in `rem` because it's relat
   font-size: clamp(1.25rem, 0.25rem + 2.0833333333vw, 2.75rem);
 }
 */
-```
-
-# Options
-The library comes with three default options:
-
-``` scss
-$defaults_slamp_options: (
-  "root-size": 16px, 
-  "min": 480px, 
-  "max": 1600px
-);
-```
-
-- `root-size` - represents the calculation base for `rem` expressed in `px`;
-- `min` - the minimun viewport width (px, em, rem, vw, % [...]);
-- `max` - the maximum viewport width (px, em, rem, vw, % [...]).
-
-Using the `$slamp_limits` variable in your scss stylesheet you can **override** each defaults:
-
-``` scss
-$slamp_options: (
-  "root-size": 10px, 
-  "min": 768px,
-  "max": 1920px
-);
 ```
 
