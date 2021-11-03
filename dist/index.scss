@@ -1,3 +1,5 @@
+@use 'sass:math';
+@use 'sass:list';
 // ____________________________________________________________________________
 //
 //    Sass Unit Converter v.2.5.0
@@ -93,9 +95,6 @@
 
 // == Base =====================================================================
 // Base font size in pixel for converting em and rem to absolute lengths.
-@use "sass:math";
-@use "sass:list";
-
 $root-font-size: 16px            !default;
 $base-font-size: $root-font-size !default;
 $unit-width:     1200px          !default;
@@ -242,7 +241,7 @@ $unit-options-map: (
 @function one-unit($input) {
   $type: type-of($input);
   @if $type == 'number' {
-    @return math.div($input, num($input));
+    @return ($input / num($input));
   }
   @if $type != 'string' {
     @error 'Value for `unit` should be a number or string.';
@@ -324,7 +323,7 @@ $unit-options-map: (
   // $input is VW, VH, VMIN, VMAX using px as base
   @if index(vw vh vmin vmax, unit($input)) {
     $break: get-break(unit($input), $width, $height, $options);
-    $input: ($break * num($input)) * 0.01;
+    $input: ($break * num($input)) / 100;
   }
 
   // $unit is VW, VH, VMIN, VNAX using px as base
@@ -332,26 +331,25 @@ $unit-options-map: (
     $break: num(get-break($unit, $width, $height, $options));
     $input: num(px($input, $options));
     $input: if($break == 0, 0,
-    math.div($input, $break) * 100);
+    ($input / $break) * 100);
   }
 
   // EM convertion using px as base
   @if index(em, unit($input)) {
-    $input: 0px + math.div(num($input) * $base-size, 1px);
+    $input: 0px + num($input) * $base-size/1px;
   }
   @if index(em, $unit) and not unitless($input) {
     $input: 0px + px($input);
-    $input: math.div(num($input) * 1px, $base-size);
+    $input: num($input) * 1px/$base-size;
   }
 
   // REM convertion using px as base
   @if index(rem, unit($input)) {
-    $input: 0px + math.div(num($input) * $root-size, 1px);
+    $input: 0px + num($input) * $root-size/1px;
   }
   @if index(rem, $unit) and not unitless($input) {
-    // $input: 0px + $input; removing px allows me to use % values
-    $input: 0 + $input;
-    $input: math.div(num($input) * 1px, $root-size);
+    $input: 0px + $input;
+    $input: num($input) * 1px/$root-size;
   }
 
   // Bug fix – resolution units seems to be flipped
@@ -422,16 +420,16 @@ $unit-options-map: (
     $n: $x; $y: 1;
     @while $y < 10 {
       $x:  $n * 10 - ((10 - $y) * $n);
-      @if $x == round($x){ @return list.slash($x, $y); }
+      @if $x == round($x){ @return #{$x}/#{$y}; }
       @else { $y: $y + 1; }
     }
     $x: round($n * 1000000); $y: 1000000;
-    @while $x % 10 == 0 { $x: $x*0.1; $y: $y*0.1; }
-    @while $x % 5 == 0 { $x: $x*0.2; $y: $y*0.2; }
-    @while $x % 2 == 0 { $x: $x*0.5; $y: $y*0.5; }
-    @return list.slash($x, $y);
+    @while $x % 10 == 0 { $x: $x/10; $y: $y/10; }
+    @while $x % 5 == 0 { $x: $x/5; $y: $y/5; }
+    @while $x % 2 == 0 { $x: $x/2; $y: $y/2; }
+    @return #{$x}/#{$y};
   }
-  @else if $x == round($x) and $y == round($y){ @return list.slash($x, $y); }
+  @else if $x == round($x) and $y == round($y){ @return #{$x}/#{$y}; }
   @warn 'X and Y must be integers'; @return false;
 }
 
@@ -451,7 +449,7 @@ $unit-options-map: (
   // Adjust for compounds (visual size)
   @if length($input) > 1 {
     @for $i from 2 through length($input) {
-      $em: math.div($em, num(em(nth($input, $i), $options)));
+      $em: $em / num(em(nth($input, $i), $options));
     }
   }
   @return $em;
@@ -494,7 +492,7 @@ $unit-options-map: (
 @function num($input) {
   @if is-num($input) { @return $input; }
   @if type-of($input) == 'number' and not unitless($input) {
-    @return math.div($input, $input * 0 + 1);
+    @return $input / ($input * 0 + 1);
   } @else if type-of($input) != 'string' {
     @error 'Could not convert `#{$input}` - must be `type-of number or a string.`';
     @return null;
@@ -515,7 +513,7 @@ $unit-options-map: (
         $result: $result * 10 + map-get($numbers, $character);
       } @else {
         $digits: $digits * 10;
-        $result: $result + math.div(map-get($numbers, $character), $digits);
+        $result: $result + map-get($numbers, $character) / $digits;
       }
     }
   }
@@ -614,3 +612,132 @@ $unit-options-map: (
 @function  is-number($input, $strict: true) { @return is-num($input, $strict); }
 @function  is-length($input) { @return is-len($input); }
 @function  is-string($input) { @return is-str($input); }
+
+// Override the original function to improve the utilities for the library
+@function unit-global-options() {
+  $global-options:(
+//  Global Name Global Variable
+    root-size:  $root-font-size,
+    base-size:  $base-font-size,
+    width:      $unit-width,
+    height:     $unit-height,
+    callback:   $check-callback,
+  );
+
+  // Add merge with library options
+  $merged_options: map-merge($defaults_slamp_limits, $slamp_limits);
+  $merged_unitconverter_options: map-merge($global-options, $merged_options);
+
+  @return $merged_unitconverter_options;
+}
+
+// Conversion function
+@function to-unit($input, $unit, $options: ()) {
+  // Get Options
+  $root-size: unit-get-option($options, root-size);
+  $base-size: unit-get-option($options, base-size);
+  $width:     unit-get-option($options, width);
+  $height:    unit-get-option($options, height);
+  $callback:  unit-get-option($options, callback);
+
+  // Check if convertable
+  $callback-args: ($input $unit $options);
+  @if (not is-null($callback)) and (not call($callback, $callback-args...)) {
+    @return $input;
+  }
+
+  // Test against valid CSS units
+  $units: n-units(0);
+  $to-unit: map-get($units, $unit);
+
+  // Error handling – wrong $unit
+  // Incomparable units are caught in convertion
+  @if not $to-unit {
+    @error 'Could not convert to `#{$unit}` – must be a valid CSS unit';
+    @return null;
+  }
+
+  // Number/incomparable conversion
+  @if index(num number ex ch, $unit) {
+    $value: num($input);
+  }
+
+  // $input is VW, VH, VMIN, VMAX using px as base
+  @if index(vw vh vmin vmax, unit($input)) {
+    $break: get-break(unit($input), $width, $height, $options);
+    $input: ($break * num($input)) * 0.01;
+  }
+
+  // $unit is VW, VH, VMIN, VNAX using px as base
+  @if index(vw vh vmin vmax, $unit) and not index(num number, unit($input)) {
+    $break: num(get-break($unit, $width, $height, $options));
+    $input: num(px($input, $options));
+    $input: if($break == 0, 0,
+    math.div($input, $break) * 100);
+  }
+
+  // EM convertion using px as base
+  @if index(em, unit($input)) {
+    $input: 0 + math.div(num($input) * $base-size, 1px);
+  }
+  @if index(em, $unit) and not unitless($input) {
+    $input: 0 + px($input);
+    $input: math.div(num($input) * 1px, $base-size);
+  }
+
+  // REM convertion using px as base
+  @if index(rem, unit($input)) {
+    $input: 0 + math.div(num($input) * $root-size, 1px);
+  }
+  @if index(rem, $unit) and not unitless($input) {
+    // $input: 0px + $input; removing px allows me to use % values
+    $input: 0 + $input;
+    $input: math.div(num($input) * 1px, $root-size);
+  }
+
+  // Bug fix – resolution units seems to be flipped
+  @if index(dpi dpcm dppx, $unit){
+    $units: (dppx: 0dppx, dpcm: 0dpcm, dpi: 0dpi);
+    $input-unit: map-get($units, unit($input));
+    $input: if(1dppx < 95dpi,num($input-unit + (num($input) + $to-unit)),$input);
+  }
+
+  // Convert
+  @return $to-unit + $input;
+}
+$defaults_slamp_limits: (
+  "root-size": 16px,
+  "min": 480px, 
+  "max": 1600px
+);
+
+$slamp_limits: ()!default;
+/// Inspired by https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+/// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
+/// @param {String} $minSize - required - the min size of the property (px, em, rem, vw, % [...])
+/// @param {String} $maxSize - required - the max size of the property (px, em, rem, vw, % [...])
+/// @param {String} $minLimit - optional - the min limit if different from default (px, em, rem, vw, % [...])
+/// @param {String} $maxLimit - optional - the max limit if different from default (px, em, rem, vw, % [...])
+/// @return {String} - clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
+
+@function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null) {  
+  $merged: map-merge($defaults_slamp_limits, $slamp_limits);
+
+  $minSizeRem: rem($minSize);
+  $maxSizeRem: rem($maxSize);
+
+  $minLimitRem: rem(map-get($merged, 'min'));
+  @if($minLimit){
+    $minLimitRem: rem($minLimit);
+  }
+
+  $maxLimitRem: rem(map-get($merged, 'max'));
+  @if($maxLimit){
+    $maxLimitRem: rem($maxLimit);
+  }
+
+  $slope: math.div(num($maxSizeRem) - num($minSizeRem), num($maxLimitRem) - num($minLimitRem));
+  $intersection: (-1 * num($minLimitRem)) * $slope + num($minSizeRem);
+
+  @return clamp(#{$minSizeRem}, #{rem($intersection)} + #{$slope * 100vw}, #{$maxSizeRem});
+}

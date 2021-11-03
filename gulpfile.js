@@ -4,7 +4,9 @@ const plugins = require('gulp-load-plugins')();
 exports.default = function() {
   return gulp.src(
     [
-      'src/unitconverter.scss',
+      'src/namespaces.scss',
+      'node_modules/sass-unitconverter/_unitconverter.scss',
+      'src/unitconverter_override.scss',
       'src/options.scss',
       'src/slope.scss'
     ])
