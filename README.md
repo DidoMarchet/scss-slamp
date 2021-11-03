@@ -1,19 +1,14 @@
-**That mean you don't going to make up clamp() preferred values anymore**
 
-# scss-slamp
-[`clamp()`](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()) is **one of the most useful css rule** for responsive and adaptive layouts!
+# slamp()
+### Don't have to make up clamp preferred values anymore because:
 
-But it's **hard to define the preferred value** used as long as the result is between the minimum and maximum values.
+:relaxed: [`clamp()`](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()) is **one of the most useful css rule** for responsive and adaptive layouts!
 
-Adding the slope of linear functions to clamp **we enhance the rule with a little bit of mathematics**!
+:worried: But it's **hard to define the preferred value** used as long as the result is between the minimum and maximum values.
 
-This is how `slamp()` works: **S**~~lope~~ + ~c~**LAMP** = **SLAMP**.
+:triangular_ruler: Adding the [slope of linear functions](https://www.mathplanet.com/education/pre-algebra/graphing-and-functions/the-slope-of-a-linear-function) to `clamp()` **we enhance the rule with a little bit of mathematics**!
 
-Basically that mean you don't going to make up clamp's preferred values anymore.
-
-
-
-
+:rocket: This is how [`slamp()`](#example) works: **S**~~lope~~ + ~c~**LAMP** = **SLAMP**.
 
 ### Table of content:
 - [Options](#options)
