@@ -1,6 +1,6 @@
 {
   "name": "scss-slamp",
-  "version": "1.2.1",
+  "version": "1.0.0",
   "files": [
     "dist"
   ],
@@ -17,12 +17,12 @@
     "build": "gulp"
   },
   "keywords": [
-    "Scss",
-    "Scss function",
-    "Scss clamp",
-    "Scss slope"
+    "scss",
+    "function",
+    "clamp",
+    "slope"
   ],
-  "description": "",
+  "description": "Enhance the css clamp() function with a little bit of mathematics.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DidoMarchet/scss-slamp.git"
