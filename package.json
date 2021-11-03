@@ -1,13 +1,13 @@
 {
   "name": "scss-slamp",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "files": [
     "dist"
   ],
   "main": "./dist/index.scss",
   "style": "./dist/index.scss",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-load-plugins": "^2.0.6",
     "stylelint": "^13.13.1",
