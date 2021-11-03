@@ -91,6 +91,10 @@ selector{
   padding: slamp(25px, 50px) slamp(50px, 75px);
 }
 
+#id{
+  width: slamp(5vw, 15vw);
+}
+
 h2{
   font-size: slamp(1.25rem, 2.75rem, 768px, 1920px); // default viewport limits are overrided
 }
@@ -99,6 +103,10 @@ h2{
 .my-class {
   padding: clamp(1.5625 rem, 0.8928571429 rem + 2.2321428571 vw, 3.125 rem)
     clamp(3.125 rem, 2.4553571429 rem + 2.2321428571 vw, 4.6875 rem);
+}
+
+#id{
+  width: clamp(3.75rem, 0.5357142857rem + 10.7142857143vw, 11.25rem);
 }
 
 h2 {
