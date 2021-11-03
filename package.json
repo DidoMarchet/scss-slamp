@@ -7,12 +7,17 @@
   "main": "./dist/index.scss",
   "style": "./dist/index.scss",
   "devDependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
-    "gulp-load-plugins": "^2.0.6"
+    "gulp-load-plugins": "^2.0.6",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-scss": "^3.19.0"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "lint": "stylelint --fix \"**/**/*.{scss,css}\""
   },
   "keywords": [
     "Scss",

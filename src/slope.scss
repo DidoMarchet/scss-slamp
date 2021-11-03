@@ -13,17 +13,18 @@
   $maxSizeRem: rem($maxSize);
 
   $minLimitRem: rem(map-get($merged, 'min'));
-  @if($minLimit){
+  @if ($minLimit){
     $minLimitRem: rem($minLimit);
   }
 
   $maxLimitRem: rem(map-get($merged, 'max'));
-  @if($maxLimit){
+  @if ($maxLimit){
     $maxLimitRem: rem($maxLimit);
   }
 
   $slope: math.div(num($maxSizeRem) - num($minSizeRem), num($maxLimitRem) - num($minLimitRem));
   $intersection: (-1 * num($minLimitRem)) * $slope + num($minSizeRem);
+
 
   @return clamp(#{$minSizeRem}, #{rem($intersection)} + #{$slope * 100vw}, #{$maxSizeRem});
 }

@@ -95,11 +95,11 @@
 
 // == Base =====================================================================
 // Base font size in pixel for converting em and rem to absolute lengths.
-$root-font-size: 16px            !default;
+$root-font-size: 16px !default;
 $base-font-size: $root-font-size !default;
-$unit-width:     1200px          !default;
-$unit-height:    800px           !default;
-$check-callback: null            !default;
+$unit-width:     1200px !default;
+$unit-height:    800px !default;
+$check-callback: null !default;
 
 @function n-units($number) {
   @return (
@@ -336,19 +336,19 @@ $unit-options-map: (
 
   // EM convertion using px as base
   @if index(em, unit($input)) {
-    $input: 0px + num($input) * $base-size/1px;
+    $input: 0 + num($input) * $base-size/1px;
   }
   @if index(em, $unit) and not unitless($input) {
-    $input: 0px + px($input);
+    $input: 0 + px($input);
     $input: num($input) * 1px/$base-size;
   }
 
   // REM convertion using px as base
   @if index(rem, unit($input)) {
-    $input: 0px + num($input) * $root-size/1px;
+    $input: 0 + num($input) * $root-size/1px;
   }
   @if index(rem, $unit) and not unitless($input) {
-    $input: 0px + $input;
+    $input: 0 + $input;
     $input: num($input) * 1px/$root-size;
   }
 
@@ -395,7 +395,7 @@ $unit-options-map: (
 // Conversion most of the data.
 @function to-unit-data($data, $unit, $options: ()) {
   $new-data: ();
-  @if      is-list($data) {
+  @if is-list($data) {
     @each $value in $data {
       $converted: to-unit-converted($value, $unit, $options);
       $new-data: append($new-data, $converted);
@@ -461,27 +461,27 @@ $unit-options-map: (
 @function ch($input, $options: ()) { @return to-unit($input, ch, $options); }
 
 // Relative lengths - Viewport
-@function   vw($input, $options: ()) { @return to-unit($input,   vw, $options); }
-@function   vh($input, $options: ()) { @return to-unit($input,   vh, $options); }
+@function vw($input, $options: ()) { @return to-unit($input,   vw, $options); }
+@function vh($input, $options: ()) { @return to-unit($input,   vh, $options); }
 @function vmin($input, $options: ()) { @return to-unit($input, vmin, $options); }
 @function vmax($input, $options: ()) { @return to-unit($input, vmax, $options); }
 
 // Angles
-@function  deg($input, $options: ()) { @return to-unit($input,  deg, $options); }
-@function  rad($input, $options: ()) { @return to-unit($input,  rad, $options); }
+@function deg($input, $options: ()) { @return to-unit($input,  deg, $options); }
+@function rad($input, $options: ()) { @return to-unit($input,  rad, $options); }
 @function grad($input, $options: ()) { @return to-unit($input, grad, $options); }
 @function turn($input, $options: ()) { @return to-unit($input, turn, $options); }
 
 // Time
 @function ms($input, $options: ()) { @return to-unit($input, ms, $options); }
-@function  s($input, $options: ()) { @return to-unit($input,  s, $options); }
+@function s($input, $options: ()) { @return to-unit($input,  s, $options); }
 
 // Frequencies
-@function  hz($input, $options: ()) { @return to-unit($input,  hz, $options); }
+@function hz($input, $options: ()) { @return to-unit($input,  hz, $options); }
 @function khz($input, $options: ()) { @return to-unit($input, khz, $options); }
 
 // Resolution
-@function  dpi($input, $options: ()) { @return to-unit($input,  dpi, $options); }
+@function dpi($input, $options: ()) { @return to-unit($input,  dpi, $options); }
 @function dpcm($input, $options: ()) { @return to-unit($input, dpcm, $options); }
 @function dppx($input, $options: ()) { @return to-unit($input, dppx, $options); }
 
@@ -541,54 +541,54 @@ $unit-options-map: (
 @function is-in($input) { @return get-unit($input) == 'in'; }
 
 // Relative lengths - font based
-@function  is-em($input) { @return get-unit($input) ==  'em'; }
+@function is-em($input) { @return get-unit($input) ==  'em'; }
 @function is-rem($input) { @return get-unit($input) == 'rem'; }
-@function  is-ex($input) { @return get-unit($input) ==  'ex'; }
-@function  is-ch($input) { @return get-unit($input) ==  'ch'; }
+@function is-ex($input) { @return get-unit($input) ==  'ex'; }
+@function is-ch($input) { @return get-unit($input) ==  'ch'; }
 
 // Relative lengths - viewport based
-@function   is-vw($input) { @return get-unit($input) ==   'vw'; }
-@function   is-vh($input) { @return get-unit($input) ==   'vh'; }
+@function is-vw($input) { @return get-unit($input) ==   'vw'; }
+@function is-vh($input) { @return get-unit($input) ==   'vh'; }
 @function is-vmin($input) { @return get-unit($input) == 'vmin'; }
 @function is-vmax($input) { @return get-unit($input) == 'vmax'; }
 
 // Angles
-@function  is-deg($input) { @return get-unit($input) ==  'deg'; }
-@function  is-rad($input) { @return get-unit($input) ==  'rad'; }
+@function is-deg($input) { @return get-unit($input) ==  'deg'; }
+@function is-rad($input) { @return get-unit($input) ==  'rad'; }
 @function is-grad($input) { @return get-unit($input) == 'grad'; }
 @function is-turn($input) { @return get-unit($input) == 'turn'; }
 
 // Time
 @function is-ms($input) { @return get-unit($input) == 'ms'; }
-@function  is-s($input) { @return get-unit($input) ==  's'; }
+@function is-s($input) { @return get-unit($input) ==  's'; }
 
 // Frequencies
-@function  is-hz($input) { @return get-unit($input) ==  'hz'; }
+@function is-hz($input) { @return get-unit($input) ==  'hz'; }
 @function is-khz($input) { @return get-unit($input) == 'khz'; }
 
 // Resolution
-@function  is-dpi($input) { @return get-unit($input) ==  'dpi'; }
+@function is-dpi($input) { @return get-unit($input) ==  'dpi'; }
 @function is-dpcm($input) { @return get-unit($input) == 'dpcm'; }
 @function is-dppx($input) { @return get-unit($input) == 'dppx'; }
 
 // Percent, Number, Length, String
-@function  is-pct($input) { @return get-unit($input) ==      '%'; }
-@function  is-num($input, $strict: true) {
+@function is-pct($input) { @return get-unit($input) ==      '%'; }
+@function is-num($input, $strict: true) {
   @return if($strict, get-unit($input) == 'num', type-of($input) == 'number');
 }
-@function  is-len($input) {
+@function is-len($input) {
   @return is-num($input) != is-num($input, false);
 }
-@function  is-str($input) { @return get-unit($input) == 'string'; }
+@function is-str($input) { @return get-unit($input) == 'string'; }
 
 // ETC: SASS Types
-@function  is-null($input, $strict: true) {
+@function is-null($input, $strict: true) {
   $null-check: get-unit($input) == 'null';
   @return if($strict, $null-check, $null-check or length($input) == 0 or $input == '');
 }
-@function  is-bool($input) { @return get-unit($input) ==  'bool'; }
-@function  is-list($input) { @return get-unit($input) ==  'list'; }
-@function   is-map($input) { @return get-unit($input) ==   'map'; }
+@function is-bool($input) { @return get-unit($input) ==  'bool'; }
+@function is-list($input) { @return get-unit($input) ==  'list'; }
+@function is-map($input) { @return get-unit($input) ==   'map'; }
 @function is-color($input) { @return get-unit($input) == 'color'; }
 
 @function is-equal($inputA, $inputB) { @return $inputA == $inputB; }
@@ -609,9 +609,9 @@ $unit-options-map: (
 
 // Aliases
 @function is-percent($input) { @return is-pct($input); }
-@function  is-number($input, $strict: true) { @return is-num($input, $strict); }
-@function  is-length($input) { @return is-len($input); }
-@function  is-string($input) { @return is-str($input); }
+@function is-number($input, $strict: true) { @return is-num($input, $strict); }
+@function is-length($input) { @return is-len($input); }
+@function is-string($input) { @return is-str($input); }
 
 // Override the original function to improve the utilities for the library
 @function unit-global-options() {
@@ -711,7 +711,7 @@ $defaults_slamp_limits: (
   "max": 1600px
 );
 
-$slamp_limits: ()!default;
+$slamp_limits: () !default;
 /// Inspired by https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
 /// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
 /// @param {String} $minSize - required - the min size of the property (px, em, rem, vw, % [...])
@@ -727,12 +727,12 @@ $slamp_limits: ()!default;
   $maxSizeRem: rem($maxSize);
 
   $minLimitRem: rem(map-get($merged, 'min'));
-  @if($minLimit){
+  @if ($minLimit){
     $minLimitRem: rem($minLimit);
   }
 
   $maxLimitRem: rem(map-get($merged, 'max'));
-  @if($maxLimit){
+  @if ($maxLimit){
     $maxLimitRem: rem($maxLimit);
   }
 
