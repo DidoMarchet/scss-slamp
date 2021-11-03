@@ -2,11 +2,11 @@
 # slamp()
 ### Don't have to make up clamp preferred values anymore because:
 
-:relaxed: [`clamp()`](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()) is **one of the most useful css rule** for responsive and adaptive layouts!
+:relaxed: [`clamp()`](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()) is **one of the most useful css function** for responsive and adaptive layouts!
 
 :worried: But it's **hard to define the preferred value** used as long as the result is between the minimum and maximum values.
 
-:triangular_ruler: Adding the [slope of linear functions](https://www.mathplanet.com/education/pre-algebra/graphing-and-functions/the-slope-of-a-linear-function) to `clamp()` **we enhance the rule with a little bit of mathematics**!
+:triangular_ruler: Adding the [slope of linear functions](https://www.mathplanet.com/education/pre-algebra/graphing-and-functions/the-slope-of-a-linear-function) to `clamp()` **we enhance the function with a little bit of mathematics**!
 
 :rocket: This is how [`slamp()`](#example) works: **S**~~lope~~ + ~c~**LAMP** = **SLAMP**.
 
