@@ -1,4 +1,20 @@
+**That mean you don't going to make up clamp() preferred values anymore**
+
 # scss-slamp
+[`clamp()`](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()) is **one of the most useful css rule** for responsive and adaptive layouts!
+
+But it's **hard to define the preferred value** used as long as the result is between the minimum and maximum values.
+
+Adding the slope of linear functions to clamp **we enhance the rule with a little bit of mathematics**!
+
+This is how `slamp()` works: **s~~lope~~** + **~c~lamp** = **slamp**.
+
+Basically that mean you don't going to make up clamp's preferred values anymore.
+
+
+
+
+
 ### Table of content:
 - [Options](#options)
 - [Usage](#usage)
@@ -99,5 +115,12 @@ h2 {
 # Thanks
 Special thanks for the inspiration and snippets to:
 
-- Pedro Rodriguez the author of this wonderful and detailed article [https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/](https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/)
-- Jakob Eriksen the author of this fundamental library [https://github.com/black7375/sass-unitconverter](https://github.com/black7375/sass-unitconverter)
+- Pedro Rodriguez the author of this **wonderful and detailed** article [https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/](https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/) who inspire me to create this function;
+- Jakob Eriksen the author of this **fundamental library** [https://github.com/black7375/sass-unitconverter](https://github.com/black7375/sass-unitconverter), the backbone of this function.
+
+# Contribute
+Feel free to **fork and increase** this repo!
+
+And **let me know** if you find it useful!
+
+Enjoy :punch:
