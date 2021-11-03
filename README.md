@@ -67,22 +67,21 @@ The arguments of the `clamp` statement are expressed in `rem` because it's relat
 
 ### Example
 ``` scss
-/// @param {String} $minSize - required - the min size of the property (px, em, rem, vw, % [...])
-/// @param {String} $maxSize - required - the max size of the property (px, em, rem, vw, % [...])
-/// @param {String} $minLimit - optional - the min limit if different from default (px, em, rem, vw, % [...])
-/// @param {String} $maxLimit - optional - the max limit if different from default (px, em, rem, vw, % [...])
-/// @return {String} - clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
-
 .my-class{
   padding: slamp(25px, 50px) slamp(50px, 75px);
-  font-size: slamp(1.25rem, 2.75rem, 768px, 1920px); // $defaults_slamp_options and $slamp_options are overrided
 }
 
-/// @output A generate css clamp() function
+h2{
+  font-size: slamp(1.25rem, 2.75rem, 768px, 1920px); // default viewport limits are overrided
+}
+
 /*
 .my-class {
   padding: clamp(1.5625 rem, 0.8928571429 rem + 2.2321428571 vw, 3.125 rem)
     clamp(3.125 rem, 2.4553571429 rem + 2.2321428571 vw, 4.6875 rem);
+}
+
+h2 {
   font-size: clamp(1.25rem, 0.25rem + 2.0833333333vw, 2.75rem);
 }
 */
