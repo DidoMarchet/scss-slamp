@@ -34,7 +34,7 @@ $defaults_slamp_options: (
 - `min` - the minimun viewport width (px, em, rem, vw, % [...]);
 - `max` - the maximum viewport width (px, em, rem, vw, % [...]).
 
-Using the `$slamp_limits` variable in your scss stylesheet you can **override** each defaults:
+Using the `$slamp_options` variable in your scss stylesheet you can **override** each defaults:
 
 ``` scss
 $slamp_options: (
@@ -56,14 +56,22 @@ selector{
 
 The function takes as parameters:
 
-- `$minSize` - required - the lower bound (px, em, rem, vw, % [...]);
-- `$maxSize` - required - the upper bound (px, em, rem, vw, % [...]);
-- `$minLimit` - optional - override the default minimum viewport width (px, em, rem, vw, % [...]);
-- `$maxLimit` - optional - override the default maximum viewport width (px, em, rem, vw, % [...]).
+- `$minSize` - *required* - the lower bound (px, em, rem, vw, % [...]);
+- `$maxSize` - *required* - the upper bound (px, em, rem, vw, % [...]);
+- `$minLimit` - *optional* - override the default minimum viewport width (px, em, rem, vw, % [...]);
+- `$maxLimit` - *optional* - override the default maximum viewport width (px, em, rem, vw, % [...]).
 
-It returns a `clamp` statement with an interpolated "preferred" value.
+It returns a `clamp` statement where everything in between the preferred limits **changes in linear fashion**.
 
-The arguments of the `clamp` statement are expressed in `rem` because it's relative to the root avoiding compounding issues.
+```scss
+/*
+selector{
+  rule: clamp(minSize[rem], intersection[rem] + slope * 100vw, maxSize[rem])
+}
+*/
+```
+
+❗ The generated arguments of the `clamp` statement are expressed in `rem` because it's relative to the root **avoiding compounding issues**.
 
 ### Example
 ``` scss
