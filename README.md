@@ -19,16 +19,25 @@ and include it using an **@import** statement:
 ```
 
 # Usage
+
+``` scss
+selector{
+  rule: slamp(minSize, maxSize);
+  rule: slamp(minSize, maxSize, minLimit, maxLimit);
+}
+```
+
+
 The function takes as parameters:
 
 - `$minSize` - required - the lower bound (px, em, rem, vw, % [...]);
 - `$maxSize` - required - the upper bound (px, em, rem, vw, % [...]);
-- `$minSize` - optional - the minimum viewport width (px, em, rem, vw, % [...]);
-- `$maxSize` - optional - the maximum viewport width (px, em, rem, vw, % [...]).
+- `$minLimit` - optional - the minimum viewport width (px, em, rem, vw, % [...]);
+- `$maxLimit` - optional - the maximum viewport width (px, em, rem, vw, % [...]).
 
 It returns a `clamp` statement with an interpolated "preferred" value.
 
-The arguments of the statement are expressed in `rem` because it's relative to the root avoiding compounding issues.
+The arguments of the `clamp` statement are expressed in `rem` because it's relative to the root avoiding compounding issues.
 
 ### Example
 ``` scss
