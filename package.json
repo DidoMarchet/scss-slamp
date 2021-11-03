@@ -9,7 +9,9 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-load-plugins": "^2.0.6"
+    "gulp-load-plugins": "^2.0.6",
+    "glob-parent": ">=5.1.2",
+    "set-value": ">=4.0.1"
   },
   "scripts": {
     "build": "gulp"
