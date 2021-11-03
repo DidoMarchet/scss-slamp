@@ -7,7 +7,7 @@
 /// @return {String} - clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
 
 @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null) {  
-  $merged: map-merge($defaults_slamp_limits, $slamp_limits);
+  $merged: map-merge($defaults_slamp_options, $slamp_options);
 
   $minSizeRem: rem($minSize);
   $maxSizeRem: rem($maxSize);

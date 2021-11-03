@@ -24,16 +24,16 @@ First of all we set up the **minimum** and **maximum** viewport sizes by which w
 The library comes with two default limits:
 
 ``` scss
-$defaults_slamp_limits: (
+$defaults_slamp_options: (
   "min": 480px, 
   "max": 1600px
 );
 ```
 
-Using the `$slamp_limits` variable in your scss stylesheet you can **override** the defaults:
+Using the `$slamp_options` variable in your scss stylesheet you can **override** the defaults:
 
 ``` scss
-$slamp_limits: (
+$slamp_options: (
   "min": 768px,
   "max": 1920px
 );
@@ -63,7 +63,7 @@ The arguments of the statement are expressed in `rem` because it's relative to t
 
 .my-class{
   padding: slamp(25px, 50px) slamp(50px, 75px);
-  font-size: slamp(1.25rem, 2.75rem, 768px, 1920px); // $defaults_slamp_limits and $slamp_limits are overrided
+  font-size: slamp(1.25rem, 2.75rem, 768px, 1920px); // $defaults_slamp_options and $slamp_options are overrided
 }
 
 /// @output A generate css clamp() function

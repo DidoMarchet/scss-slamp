@@ -625,7 +625,7 @@ $unit-options-map: (
   );
 
   // Add merge with library options
-  $merged_options: map-merge($defaults_slamp_limits, $slamp_limits);
+  $merged_options: map-merge($defaults_slamp_options, $slamp_options);
   $merged_unitconverter_options: map-merge($global-options, $merged_options);
 
   @return $merged_unitconverter_options;
@@ -705,13 +705,13 @@ $unit-options-map: (
   // Convert
   @return $to-unit + $input;
 }
-$defaults_slamp_limits: (
+$defaults_slamp_options: (
   "root-size": 16px,
   "min": 480px, 
   "max": 1600px
 );
 
-$slamp_limits: () !default;
+$slamp_options: () !default;
 /// Inspired by https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
 /// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
 /// @param {String} $minSize - required - the min size of the property (px, em, rem, vw, % [...])
@@ -721,7 +721,7 @@ $slamp_limits: () !default;
 /// @return {String} - clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
 
 @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null) {  
-  $merged: map-merge($defaults_slamp_limits, $slamp_limits);
+  $merged: map-merge($defaults_slamp_options, $slamp_options);
 
   $minSizeRem: rem($minSize);
   $maxSizeRem: rem($maxSize);

@@ -10,7 +10,7 @@
   );
 
   // Add merge with library options
-  $merged_options: map-merge($defaults_slamp_limits, $slamp_limits);
+  $merged_options: map-merge($defaults_slamp_options, $slamp_options);
   $merged_unitconverter_options: map-merge($global-options, $merged_options);
 
   @return $merged_unitconverter_options;
