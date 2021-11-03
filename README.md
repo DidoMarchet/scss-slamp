@@ -97,3 +97,7 @@ h2 {
 ```
 
 # Thanks
+Special thanks for the inspiration and snippets to:
+
+- Pedro Rodriguez the author of this wonderful and detailed article [https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/](https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/)
+- Jakob Eriksen the author of this fundamental library [https://github.com/black7375/sass-unitconverter](https://github.com/black7375/sass-unitconverter)
