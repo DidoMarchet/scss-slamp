@@ -1,6 +1,6 @@
 
 # slamp()
-### Don't have to make up clamp preferred values anymore because:
+### Don't have to make up clamp “preferred value“ anymore because:
 
 :relaxed: [`clamp()`](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()) is **one of the most useful css function** for responsive and adaptive layouts!
 
