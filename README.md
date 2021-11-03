@@ -1,7 +1,7 @@
 # scss-slamp
 ### Table of content:
-- [Setup](#setup)
 - [Usage](#usage)
+- [Options](#options)
 
 Install the package via npm:
 
@@ -18,38 +18,13 @@ and include it using an **@import** statement:
 /// [...]
 ```
 
-# Setup
-First of all we set up the **root-size**, **minimum** and **maximum** viewport sizes by which will be calculated the intermediate values.
-
-The library comes with two default limits:
-
-``` scss
-$defaults_slamp_options: (
-  "root-size": 16px, 
-  "min": 480px, 
-  "max": 1600px
-);
-```
-
-Using the `$slamp_limits` variable in your scss stylesheet you can **override** each defaults:
-
-``` scss
-$slamp_options: (
-  "root-size": 10px, 
-  "min": 768px,
-  "max": 1920px
-);
-```
-
-You can specify limits using **various units of measure**  (px, em, rem, vw, % [...]);
-
 # Usage
 The function takes as parameters:
 
 - `$minSize` - required - the lower bound (px, em, rem, vw, % [...]);
 - `$maxSize` - required - the upper bound (px, em, rem, vw, % [...]);
 - `$minSize` - optional - the minimum viewport width (px, em, rem, vw, % [...]);
-- `$maxSize` - optional - the maximum viewport width (px, em, rem, vw, % [...]);
+- `$maxSize` - optional - the maximum viewport width (px, em, rem, vw, % [...]).
 
 It returns a `clamp` statement with an interpolated "preferred" value.
 
@@ -78,4 +53,28 @@ The arguments of the statement are expressed in `rem` because it's relative to t
 */
 ```
 
+# Options
+The library comes with three default options:
+
+``` scss
+$defaults_slamp_options: (
+  "root-size": 16px, 
+  "min": 480px, 
+  "max": 1600px
+);
+```
+
+- `root-size` - represents the calculation base for `rem` expressed in `px`;
+- `min` - the minimun viewport width (px, em, rem, vw, % [...]);
+- `max` - the maximum viewport width (px, em, rem, vw, % [...]).
+
+Using the `$slamp_limits` variable in your scss stylesheet you can **override** each defaults:
+
+``` scss
+$slamp_options: (
+  "root-size": 10px, 
+  "min": 768px,
+  "max": 1920px
+);
+```
 
