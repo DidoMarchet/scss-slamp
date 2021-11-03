@@ -2,6 +2,7 @@
 ### Table of content:
 - [Options](#options)
 - [Usage](#usage)
+- [Example](#example)
 
 Install the package via npm:
 
