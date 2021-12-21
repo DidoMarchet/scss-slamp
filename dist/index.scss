@@ -752,7 +752,7 @@ $slamp_options: () !default;
   $slope: math.div(num($maxSizeRem) - num($minSizeRem), num($maxLimitRem) - num($minLimitRem));
   $intersection: (-1 * num($minLimitRem)) * $slope + num($minSizeRem);
 
-  @if $intersection > 0 {
+  @if $intersection != 0 {
     @return clamp(#{$minSizeRem}, #{rem($intersection)} + #{$slope * 100vw}, #{$maxSizeRem});
   } @else {
     @return clamp(#{$minSizeRem}, #{$slope * 100vw}, #{$maxSizeRem});
