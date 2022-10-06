@@ -14,6 +14,7 @@
 - [Options](#options)
 - [Usage](#usage)
 - [Example](#example)
+- [Projects using slamp](#projects-using-slamp)
 - [Thanks](#thanks)
 
 Install the package via npm:
@@ -125,5 +126,11 @@ Special thanks for the inspiration and snippets to:
 Feel free to **fork and increase** this repo!
 
 And **let me know** if you find it useful!
+
+# Projects using slamp
+
+- Airness Custom 3d configurator [https://custom.airness.eu/](https://custom.airness.eu/)
+- Alé Bike Wear US ecommerce [https://www.alebikewear.com/](https://www.alebikewear.com/)
+
 
 Enjoy :punch:
