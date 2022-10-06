@@ -9,17 +9,17 @@
 @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null) {  
   $merged: map-merge($defaults_slamp_options, $slamp_options);
 
-  $minSizeRem: rem($minSize);
-  $maxSizeRem: rem($maxSize);
+  $minSizeRem: if(is-rem($minSize), $minSize, rem($minSize));
+  $maxSizeRem: if(is-rem($maxSize), $maxSize, rem($maxSize));
 
   $minLimitRem: rem(map-get($merged, 'min'));
   @if ($minLimit){
-    $minLimitRem: rem($minLimit);
+    $minLimitRem: if(is-rem($minLimit), $minLimit,  rem($minLimit));
   }
 
   $maxLimitRem: rem(map-get($merged, 'max'));
   @if ($maxLimit){
-    $maxLimitRem: rem($maxLimit);
+    $maxLimitRem: if(is-rem($maxLimit), $maxLimit,  rem($maxLimit));
   }
 
   $slope: math.div(num($maxSizeRem) - num($minSizeRem), num($maxLimitRem) - num($minLimitRem));
