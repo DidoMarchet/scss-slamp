@@ -127,10 +127,20 @@ Feel free to **fork and increase** this repo!
 
 And **let me know** if you find it useful!
 
-# Projects using slamp
+### **Adopted by E-commerce Platforms, Apps, and Websites**
 
-- Airness Custom 3d configurator [https://custom.airness.eu/](https://custom.airness.eu/)
-- Alé Bike Wear US ecommerce [https://www.alebikewear.com/](https://www.alebikewear.com/)
-- Zava Luce [https://zavaluce.it/](https://zavaluce.it/)
+This library is trusted and used by several high-profile websites and applications, including:
 
-Enjoy :punch:
+- [Zavaluce](https://zavaluce.it/)
+- [Airdom](https://airdom.com/)
+- [Airdom App IOS](https://apps.apple.com/it/app/airdom/id6447354554)
+- [Airdom App Android](https://play.google.com/store/apps/details?id=eu.airness.appstore)
+- [Custom Airdom](https://custom.airdom.com/)
+- [Ale Bikewear](https://www.alebikewear.com/)
+- [Pixartprinting Blog](https://www.pixartprinting.it/blog/) *(and 20+ localized versions)*
+- [Gopleyers](https://gopleyers.com/)
+- [Emblema Bike](https://www.emblema.bike/)
+- [La Mia Cantina](https://www.lamiacantina.it/)
+- [BlueMotion 3D](https://www.bluemotion3d.com/)
+
+...and many others.
