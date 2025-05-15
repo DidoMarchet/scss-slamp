@@ -1,0 +1,9 @@
+/// Rounds a numeric value to a given number of decimal places.
+/// @param {Number} $value - The value to round.
+/// @param {Number} $digits - Number of decimal digits.
+/// @return {Number} - Rounded value.
+/// 
+@function round-value($value, $digits) {
+  $pow: math.pow(10, $digits);
+  @return math.div(math.round($value * $pow), $pow);
+}

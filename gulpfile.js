@@ -6,6 +6,7 @@ exports.default = function() {
     [
       'src/namespaces.scss',
       'src/unitconverter_override.scss',
+      'src/utils.scss',
       'src/options.scss',
       'src/slope.scss'
     ])

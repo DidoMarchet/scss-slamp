@@ -1,33 +1,44 @@
-/// Inspired by https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
-/// @content @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null){ ... }
-/// @param {String} $minSize - required - the min size of the property (px, em, rem, vw, % [...])
-/// @param {String} $maxSize - required - the max size of the property (px, em, rem, vw, % [...])
-/// @param {String} $minLimit - optional - the min limit if different from default (px, em, rem, vw, % [...])
-/// @param {String} $maxLimit - optional - the max limit if different from default (px, em, rem, vw, % [...])
-/// @return {String} - clamp($minSize[rem], $intersection[rem] + ($slope * 100)[vw], $maxSize[rem])
+/// Computes a fluid property size using CSS clamp, with optional rounding.
+/// Inspired by: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+/// @param {String} $minSize - Minimum property size (with unit).
+/// @param {String} $maxSize - Maximum property size (with unit).
+/// @param {String|null} $minLimit - Viewport lower limit (with unit), defaults from options if null.
+/// @param {String|null} $maxLimit - Viewport upper limit (with unit), defaults from options if null.
+/// @param {Number} $digits - Decimal places for rounding (default: 2).
+/// @return {String} - CSS clamp expression.
+@function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null, $digits: 2) {
+  // Merge default and user options
+  $options: map.merge($defaults_slamp_options, $slamp_options);
 
-@function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null) {  
-  $merged: map.merge($defaults_slamp_options, $slamp_options);
+  // Convert sizes to rem if not already
+  $minSizeRem: if(type-of($minSize) == 'number', rem($minSize), $minSize);
+  $maxSizeRem: if(type-of($maxSize) == 'number', rem($maxSize), $maxSize);
 
-  $minSizeRem: if(is-rem($minSize), $minSize, rem($minSize));
-  $maxSizeRem: if(is-rem($maxSize), $maxSize, rem($maxSize));
+  // Determine viewport limits
+  $minLimitRem: if($minLimit != null,
+    if(type-of($minLimit) == 'number', rem($minLimit), $minLimit),
+    map.get($options, 'min')
+  );
+  $maxLimitRem: if($maxLimit != null,
+    if(type-of($maxLimit) == 'number', rem($maxLimit), $maxLimit),
+    map.get($options, 'max')
+  );
 
-  $minLimitRem: rem(map.get($merged, 'min'));
-  @if ($minLimit){
-    $minLimitRem: if(is-rem($minLimit), $minLimit,  rem($minLimit));
-  }
+  // Calculate slope and intersection
+  $slope: math.div(
+    num($maxSizeRem) - num($minSizeRem),
+    num($maxLimitRem) - num($minLimitRem)
+  );
+  $intersection: num($minSizeRem) - ($slope * num($minLimitRem));
 
-  $maxLimitRem: rem(map.get($merged, 'max'));
-  @if ($maxLimit){
-    $maxLimitRem: if(is-rem($maxLimit), $maxLimit,  rem($maxLimit));
-  }
+  // Apply rounding
+  $roundedSlope: round-value($slope * 100, $digits);
+  $roundedIntersection: round-value($intersection, $digits);
 
-  $slope: math.div(num($maxSizeRem) - num($minSizeRem), num($maxLimitRem) - num($minLimitRem));
-  $intersection: (-1 * num($minLimitRem)) * $slope + num($minSizeRem);
-
-  @if $intersection != 0 {
-    @return clamp(#{$minSizeRem}, #{rem($intersection)} + #{$slope * 100vw}, #{$maxSizeRem});
-  } @else {
-    @return clamp(#{$minSizeRem}, #{$slope * 100vw}, #{$maxSizeRem});
-  }
+  // Build clamp expression
+  @return clamp(
+    #{$minSizeRem},
+    rem($roundedIntersection) + #{$roundedSlope}vw,
+    #{$maxSizeRem}
+  );
 }
