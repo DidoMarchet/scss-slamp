@@ -1,11 +1,12 @@
 {
   "name": "scss-slamp",
-  "version": "1.3.5",
+  "version": "1.4.3",
   "files": [
     "dist"
   ],
   "main": "./dist/index.scss",
   "style": "./dist/index.scss",
+  "sass": "./dist/index.scss",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
@@ -17,12 +18,21 @@
     "build": "gulp"
   },
   "keywords": [
+    "sass",
     "scss",
-    "function",
+    "css",
     "clamp",
-    "slope"
+    "responsive-design",
+    "fluid-typography",
+    "css-functions",
+    "frontend",
+    "web-design",
+    "typography",
+    "fluid-scaling",
+    "responsive-typography",
+    "css-clamp"
   ],
-  "description": "Enhance the css clamp() function with a little bit of mathematics.",
+  "description": "A small Sass/SCSS utility function to generate linear, fluid responsive values with CSS clamp() for typography, spacing and layout scaling.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DidoMarchet/scss-slamp.git"
@@ -32,5 +42,6 @@
   "bugs": {
     "url": "https://github.com/DidoMarchet/scss-slamp/issues"
   },
-  "homepage": "https://github.com/DidoMarchet/scss-slamp#readme"
+  "homepage": "https://github.com/DidoMarchet/scss-slamp#readme",
+  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }

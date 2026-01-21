@@ -5,6 +5,7 @@ exports.default = function() {
   return gulp.src(
     [
       'src/namespaces.scss',
+      'src/unitconverter.scss',
       'src/unitconverter_override.scss',
       'src/utils.scss',
       'src/options.scss',

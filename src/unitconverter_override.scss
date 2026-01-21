@@ -1,3 +1,5 @@
+// Override only the conversion logic to keep the upstream unit-converter intact while applying
+// local fixes (viewport break handling and resolution-unit edge cases) without changing the API.
 // Conversion function
 @function to-unit($input, $unit, $options: ()) {
   // Get Options

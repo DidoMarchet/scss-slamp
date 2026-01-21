@@ -2,6 +2,8 @@
 @use "sass:math";
 @use "sass:meta";
 @use "sass:map";
+@use "sass:string";
+
 // ____________________________________________________________________________
 //
 //    Sass Unit Converter v.2.5.0
@@ -206,9 +208,10 @@ $unit-options-map: (
 
 // Get Option Single Value
 @function unit-get-option-value($scoped, $name) {
-  @return if(map.has-key($scoped, $name),
-  map.get($scoped, $name),
-  map.get(unit-global-options(), $name));
+  @if map.has-key($scoped, $name) {
+    @return map.get($scoped, $name);
+  }
+  @return map.get(unit-global-options(), $name);
 }
 
 // Get Option Value
@@ -241,7 +244,10 @@ $unit-options-map: (
   $type: meta.type-of($input);
   @if $type == 'number' {
     $unit: math.unit($input);
-    @return if($unit == '', 'num', $unit);
+    @if $unit == '' {
+      @return 'num';
+    }
+    @return $unit;
   }
   @return $type;
 }
@@ -281,8 +287,12 @@ $unit-options-map: (
 
 // Get break
 @function get-break($unit, $width, $height, $options) {
-  $width:  if(is-null($width),  null, px($width, $options));
-  $height: if(is-null($height), null, px($height, $options));
+  @if not is-null($width) {
+    $width: px($width, $options);
+  }
+  @if not is-null($height) {
+    $height: px($height, $options);
+  }
 
   @if $unit == vw {
     @return $width;
@@ -342,8 +352,11 @@ $unit-options-map: (
   @if list.index(vw vh vmin vmax, $unit) and not list.index(num number, math.unit($input)) {
     $break: num(get-break($unit, $width, $height, $options));
     $input: num(px($input, $options));
-    $input: if($break == 0, 0,
-    math.div($input, $break) * 100);
+    @if $break == 0 {
+      $input: 0;
+    } @else {
+      $input: math.div($input, $break) * 100;
+    }
   }
 
   // EM convertion using px as base
@@ -369,7 +382,9 @@ $unit-options-map: (
   @if list.index(dpi dpcm dppx, $unit){
     $units: (dppx: 0dppx, dpcm: 0dpcm, dpi: 0dpi);
     $input-unit: map.get($units, math.unit($input));
-    $input: if(1dppx < 95dpi,num($input-unit + (num($input) + $to-unit)),$input);
+    @if 1dppx < 95dpi {
+      $input: num($input-unit + (num($input) + $to-unit));
+    }
   }
 
   // Convert
@@ -400,9 +415,10 @@ $unit-options-map: (
 
 // Trampoline Function
 @function to-unit-converted($value, $unit, $options: ()) {
-  @return if(is-num($value, false),
-             to-unit($value, $unit, $options),
-             to-unit-data($value, $unit, $options));
+  @if is-num($value, false) {
+    @return to-unit($value, $unit, $options);
+  }
+  @return to-unit-data($value, $unit, $options);
 }
 
 // Conversion most of the data.
@@ -421,7 +437,10 @@ $unit-options-map: (
     }
   }
   @else {
-    @return if(is-num($data, false), to-unit($data, $unit, $options), $data);
+    @if is-num($data, false) {
+      @return to-unit($data, $unit, $options);
+    }
+    @return $data;
   }
   @return $new-data;
 }
@@ -515,8 +534,12 @@ $unit-options-map: (
   $digits: 0;
   $minus: string.slice($input, 1, 1) == '-';
   $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+  $start-index: 1;
+  @if $minus {
+    $start-index: 2;
+  }
 
-  @for $i from if($minus, 2, 1) through string.length($input) {
+  @for $i from $start-index through string.length($input) {
     $character: string.slice($input, $i, $i);
 
     @if (list.index(map.keys($numbers), $character) or $character == '.') {
@@ -531,11 +554,17 @@ $unit-options-map: (
     }
   }
 
-  @return if($minus, -$result, $result);;
+  @if $minus {
+    @return -$result;
+  }
+  @return $result;
 }
 @function int($input) {
   $num: num($input);
-  @return if($num<0, math.ceil($num), math.floor($num));
+  @if $num < 0 {
+    @return math.ceil($num);
+  }
+  @return math.floor($num);
 }
 @function uint($input) { @return math.abs(int($input)); }
 
@@ -587,7 +616,10 @@ $unit-options-map: (
 // Percent, Number, Length, String
 @function  is-pct($input) { @return get-unit($input) ==      '%'; }
 @function  is-num($input, $strict: true) {
-  @return if($strict, get-unit($input) == 'num', meta.type-of($input) == 'number');
+  @if $strict {
+    @return get-unit($input) == 'num';
+  }
+  @return meta.type-of($input) == 'number';
 }
 @function  is-len($input) {
   @return is-num($input) != is-num($input, false);
@@ -597,7 +629,10 @@ $unit-options-map: (
 // ETC: SASS Types
 @function  is-null($input, $strict: true) {
   $null-check: get-unit($input) == 'null';
-  @return if($strict, $null-check, $null-check or list.length($input) == 0 or $input == '');
+  @if $strict {
+    @return $null-check;
+  }
+  @return $null-check or list.length($input) == 0 or $input == '';
 }
 @function  is-bool($input) { @return get-unit($input) ==  'bool'; }
 @function  is-list($input) { @return get-unit($input) ==  'list'; }
@@ -607,7 +642,10 @@ $unit-options-map: (
 @function is-equal($inputA, $inputB) { @return $inputA == $inputB; }
 @function is-exist($input, $strict: true) {
   $variable-exists: meta.variable-exists($input);
-  @return if($strict, $variable-exists, $variable-exists and $input);
+  @if $strict {
+    @return $variable-exists;
+  }
+  @return $variable-exists and $input;
 }
 @function is-calc($input) {
   @if not is-str($input) {
@@ -685,8 +723,11 @@ $unit-options-map: (
   @if list.index(vw vh vmin vmax, $unit) and not list.index(num number, math.unit($input)) {
     $break: num(get-break($unit, $width, $height, $options));
     $input: num(px($input, $options));
-    $input: if($break == 0, 0,
-    math.div($input, $break) * 100);
+    @if $break == 0 {
+      $input: 0;
+    } @else {
+      $input: math.div($input, $break) * 100;
+    }
   }
 
   // EM convertion using px as base
@@ -712,7 +753,96 @@ $unit-options-map: (
   @if list.index(dpi dpcm dppx, $unit){
     $units: (dppx: 0dppx, dpcm: 0dpcm, dpi: 0dpi);
     $input-unit: map.get($units, math.unit($input));
-    $input: if(1dppx < 95dpi,num($input-unit + (num($input) + $to-unit)),$input);
+    @if 1dppx < 95dpi {
+      $input: num($input-unit + (num($input) + $to-unit));
+    }
+  }
+
+  // Convert
+  @return $to-unit + $input;
+}
+
+// Override only the conversion logic to keep the upstream unit-converter intact while applying
+// local fixes (viewport break handling and resolution-unit edge cases) without changing the API.
+// Conversion function
+@function to-unit($input, $unit, $options: ()) {
+  // Get Options
+  $root-size: unit-get-option($options, root-size);
+  $base-size: unit-get-option($options, base-size);
+  $width:     unit-get-option($options, width);
+  $height:    unit-get-option($options, height);
+  $callback:  unit-get-option($options, callback);
+
+  // Check if convertable
+  $callback-args: ($input $unit $options);
+  @if (not is-null($callback)) and (not meta.call($callback, $callback-args...)) {
+    @return $input;
+  }
+
+  // Test against valid CSS units
+  $units: n-units(0);
+  $to-unit: map.get($units, $unit);
+
+  // Error handling – wrong $unit
+  // Incomparable units are caught in convertion
+  @if not $to-unit {
+    @error 'Could not convert to `#{$unit}` – must be a valid CSS unit';
+    @return null;
+  }
+
+  // Number/incomparable conversion
+  @if list.index(num number ex ch, $unit) {
+    $value: num($input);
+  }
+
+  // $input is VW, VH, VMIN, VMAX using px as base
+  @if list.index(vw vh vmin vmax, math.unit($input)) {
+    $break: get-break(math.unit($input), $width, $height, $options);
+    $input: ($break * num($input)) * 0.01;
+  }
+
+  // $unit is VW, VH, VMIN, VNAX using px as base
+  @if list.index(vw vh vmin vmax, $unit) and not list.index(num number, math.unit($input)) {
+    $break: num(get-break($unit, $width, $height, $options));
+    $input: num(px($input, $options));
+    
+    // FIX 1: Replaced deprecated if() function with @if/@else flow control
+    @if $break == 0 {
+      $input: 0;
+    } @else {
+      $input: math.div($input, $break) * 100;
+    }
+  }
+
+  // EM convertion using px as base
+  @if list.index(em, math.unit($input)) {
+    $input: 0 + math.div(num($input) * $base-size, 1px);
+  }
+  @if list.index(em, $unit) and not math.is-unitless($input) {
+    $input: 0 + px($input);
+    $input: math.div(num($input) * 1px, $base-size);
+  }
+
+  // REM convertion using px as base
+  @if list.index(rem, math.unit($input)) {
+    $input: 0 + math.div(num($input) * $root-size, 1px);
+  }
+  @if list.index(rem, $unit) and not math.is-unitless($input) {
+    // $input: 0px + $input; removing px allows me to use % values
+    $input: 0 + $input;
+    $input: math.div(num($input) * 1px, $root-size);
+  }
+
+  // Bug fix – resolution units seems to be flipped
+  @if list.index(dpi dpcm dppx, $unit){
+    $units: (dppx: 0dppx, dpcm: 0dpcm, dpi: 0dpi);
+    $input-unit: map.get($units, math.unit($input));
+    
+    // FIX 2: Replaced deprecated if() function with @if flow control
+    // Original: $input: if(1dppx < 95dpi,num($input-unit + (num($input) + $to-unit)),$input);
+    @if 1dppx < 95dpi {
+       $input: num($input-unit + (num($input) + $to-unit));
+    }
   }
 
   // Convert
@@ -746,17 +876,29 @@ $slamp_options: () !default;
 @function slamp($minSize, $maxSize, $minLimit: null, $maxLimit: null, $digits: 2) {
   $merged: map.merge($defaults_slamp_options, $slamp_options);
 
-  $minSizeRem: if(is-rem($minSize), $minSize, rem($minSize));
-  $maxSizeRem: if(is-rem($maxSize), $maxSize, rem($maxSize));
+  $minSizeRem: rem($minSize);
+  @if is-rem($minSize) {
+    $minSizeRem: $minSize;
+  }
+  $maxSizeRem: rem($maxSize);
+  @if is-rem($maxSize) {
+    $maxSizeRem: $maxSize;
+  }
 
   $minLimitRem: rem(map.get($merged, 'min'));
   @if ($minLimit){
-    $minLimitRem: if(is-rem($minLimit), $minLimit,  rem($minLimit));
+    $minLimitRem: rem($minLimit);
+    @if is-rem($minLimit) {
+      $minLimitRem: $minLimit;
+    }
   }
 
   $maxLimitRem: rem(map.get($merged, 'max'));
   @if ($maxLimit){
-    $maxLimitRem: if(is-rem($maxLimit), $maxLimit,  rem($maxLimit));
+    $maxLimitRem: rem($maxLimit);
+    @if is-rem($maxLimit) {
+      $maxLimitRem: $maxLimit;
+    }
   }
 
   $slope: math.div(num($maxSizeRem) - num($minSizeRem), num($maxLimitRem) - num($minLimitRem));
