@@ -1,5 +1,7 @@
 
-# slamp()
+# scss-slamp — Fluid responsive clamp() generator for Sass/SCSS
+## Generate fluid responsive CSS clamp() values with a Sass/SCSS helper function.
+
 ### You won't have to make up clamp “preferred value“ anymore because:
 
 :relaxed: [`clamp()`](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp()) is **one of the most useful css function** for responsive and adaptive layouts!
