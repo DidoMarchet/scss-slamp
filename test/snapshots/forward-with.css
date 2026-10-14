@@ -1,0 +1,4 @@
+.card {
+  padding: clamp(1rem, 0.62rem + 1.57vw, 2.5rem);
+  gap: clamp(0.5rem, 0.17rem + 0.69vw, 1rem);
+}

@@ -1,13 +1,36 @@
-// Override only the conversion logic to keep the upstream unit-converter intact while applying
-// local fixes (viewport break handling and resolution-unit edge cases) without changing the API.
+// The two converter functions that scss-slamp changes, kept apart from the upstream code.
+// Names, arguments and results stay the same as upstream, except where noted.
+
+// Global options, merged with the scss-slamp options
+@function unit-global-options() {
+  $global-options:(
+    // Global Name Global Variable
+    root-size:  $root-font-size,
+    base-size:  $base-font-size,
+    width:      $unit-width,
+    height:     $unit-height,
+    callback:   $check-callback,
+  );
+
+  // Add merge with library options
+  $merged_options: map.merge($defaults_slamp_options, $slamp_options);
+  $merged_unitconverter_options: map.merge($global-options, $merged_options);
+
+  @return $merged_unitconverter_options;
+}
+
+// Built once: to-unit() runs several times for every slamp() call.
+$-slamp-zero-units: n-units(0);
+
 // Conversion function
 @function to-unit($input, $unit, $options: ()) {
-  // Get Options
-  $root-size: unit-get-option($options, root-size);
-  $base-size: unit-get-option($options, base-size);
-  $width:     unit-get-option($options, width);
-  $height:    unit-get-option($options, height);
-  $callback:  unit-get-option($options, callback);
+  // Get Options, read once: reading them one by one made slamp() three times slower
+  $all-options: unit-get-option($options, all);
+  $root-size: map.get($all-options, root-size);
+  $base-size: map.get($all-options, base-size);
+  $width:     map.get($all-options, width);
+  $height:    map.get($all-options, height);
+  $callback:  map.get($all-options, callback);
 
   // Check if convertable
   $callback-args: ($input $unit $options);
@@ -16,7 +39,7 @@
   }
 
   // Test against valid CSS units
-  $units: n-units(0);
+  $units: $-slamp-zero-units;
   $to-unit: map.get($units, $unit);
 
   // Error handling – wrong $unit
@@ -41,8 +64,6 @@
   @if list.index(vw vh vmin vmax, $unit) and not list.index(num number, math.unit($input)) {
     $break: num(get-break($unit, $width, $height, $options));
     $input: num(px($input, $options));
-    
-    // FIX 1: Replaced deprecated if() function with @if/@else flow control
     @if $break == 0 {
       $input: 0;
     } @else {
@@ -51,8 +72,10 @@
   }
 
   // EM convertion using px as base
+  // The result stays in px, as upstream: without a unit the em and rem conversions
+  // below were skipped, and rem(1em) gave 16rem.
   @if list.index(em, math.unit($input)) {
-    $input: 0 + math.div(num($input) * $base-size, 1px);
+    $input: 0px + math.div(num($input) * $base-size, 1px);
   }
   @if list.index(em, $unit) and not math.is-unitless($input) {
     $input: 0 + px($input);
@@ -61,7 +84,7 @@
 
   // REM convertion using px as base
   @if list.index(rem, math.unit($input)) {
-    $input: 0 + math.div(num($input) * $root-size, 1px);
+    $input: 0px + math.div(num($input) * $root-size, 1px);
   }
   @if list.index(rem, $unit) and not math.is-unitless($input) {
     // $input: 0px + $input; removing px allows me to use % values
@@ -73,11 +96,8 @@
   @if list.index(dpi dpcm dppx, $unit){
     $units: (dppx: 0dppx, dpcm: 0dpcm, dpi: 0dpi);
     $input-unit: map.get($units, math.unit($input));
-    
-    // FIX 2: Replaced deprecated if() function with @if flow control
-    // Original: $input: if(1dppx < 95dpi,num($input-unit + (num($input) + $to-unit)),$input);
     @if 1dppx < 95dpi {
-       $input: num($input-unit + (num($input) + $to-unit));
+      $input: num($input-unit + (num($input) + $to-unit));
     }
   }
 

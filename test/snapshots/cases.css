@@ -1,0 +1,21 @@
+.cases {
+  px: clamp(1rem, 0.79rem + 0.71vw, 1.5rem);
+  two-values: clamp(1.5625rem, 0.89rem + 2.23vw, 3.125rem) clamp(3.125rem, 2.46rem + 2.23vw, 4.6875rem);
+  rem: clamp(1.25rem, 0.25rem + 2.08vw, 2.75rem);
+  vw: clamp(3.75rem, 0.54rem + 10.71vw, 11.25rem);
+  percent: clamp(0.625rem, 0.36rem + 0.89vw, 1.25rem);
+  unitless: clamp(16rem, 12.57rem + 11.43vw, 24rem);
+  zero: clamp(0rem, -0.54rem + 1.79vw, 1.25rem);
+  equal: clamp(1rem, 1rem + 0vw, 1rem);
+  odd: clamp(0.8125rem, 0.71rem + 0.36vw, 1.0625rem);
+  tiny: clamp(0.0625rem, 0.04rem + 0.09vw, 0.125rem);
+  flat: clamp(6.25rem, 6.22rem + 0.09vw, 6.3125rem);
+  negative: clamp(-3.75rem, -4.29rem + 1.79vw, -2.5rem);
+  decreasing: clamp(1.25rem, 1.52rem + -0.89vw, 0.625rem);
+  negative-decreasing: clamp(-2.5rem, -1.35rem + -2.4vw, -3.75rem);
+  min-limit: clamp(1rem, -0.83rem + 4.58vw, 3.75rem);
+  both-limits: clamp(1rem, 3.33vw, 3rem);
+  rem-limits: clamp(1rem, 3.33vw, 3rem);
+  digits: clamp(1rem, 0.7857rem + 0.7143vw, 1.5rem);
+  in-calc: calc(clamp(1rem, 0.79rem + 0.71vw, 1.5rem) * -1);
+}

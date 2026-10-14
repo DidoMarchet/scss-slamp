@@ -18,6 +18,11 @@
     $maxSizeRem: $maxSize;
   }
 
+  // Only a warning: swapping the clamp() bounds would change the CSS of the sites already using it.
+  @if num($minSizeRem) > num($maxSizeRem) {
+    @warn "slamp(#{$minSize}, #{$maxSize}): the first value is larger than the second, so the value doesn't scale and stays at #{$minSize}.";
+  }
+
   $minLimitRem: rem(map.get($merged, 'min'));
   @if ($minLimit){
     $minLimitRem: rem($minLimit);

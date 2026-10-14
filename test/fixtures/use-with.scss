@@ -1,0 +1,8 @@
+@use 'scss-slamp' as * with (
+  $slamp_options: ("root-size": 10px, "min": 768px, "max": 1920px)
+);
+
+.card {
+  padding: slamp(16px, 24px);
+  margin: slamp(8px, 16px, 480px);
+}

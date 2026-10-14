@@ -1,0 +1,7 @@
+// Design systems: a toolbox file forwards the library, components load the toolbox.
+@use 'core' as *;
+
+.card {
+  padding: slamp(16px, 40px);
+  gap: slamp(8px, 16px, 768px);
+}

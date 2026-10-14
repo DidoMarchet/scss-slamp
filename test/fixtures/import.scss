@@ -1,0 +1,9 @@
+// Old sites: @import of the dist path, then a reassignment of $slamp_options.
+@import 'scss-slamp/dist/index';
+
+$slamp_options: ("min": 390px, "max": 1920px);
+
+.card {
+  padding: slamp(16px, 24px);
+  font-size: slamp(40px, 96px);
+}

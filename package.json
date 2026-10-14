@@ -1,6 +1,6 @@
 {
   "name": "scss-slamp",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "files": [
     "dist"
   ],
@@ -8,14 +8,12 @@
   "style": "./dist/index.scss",
   "sass": "./dist/index.scss",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-load-plugins": "^2.0.6",
-    "glob-parent": ">=5.1.2",
-    "set-value": ">=4.0.1"
+    "sass": "^1.105.1"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "node scripts/build.mjs",
+    "test": "node --test",
+    "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
     "sass",
@@ -30,7 +28,13 @@
     "typography",
     "fluid-scaling",
     "responsive-typography",
-    "css-clamp"
+    "css-clamp",
+    "fluid",
+    "fluid-spacing",
+    "sass-function",
+    "scss-function",
+    "viewport",
+    "rem"
   ],
   "description": "A small Sass/SCSS utility function to generate linear, fluid responsive values with CSS clamp() for typography, spacing and layout scaling.",
   "repository": {

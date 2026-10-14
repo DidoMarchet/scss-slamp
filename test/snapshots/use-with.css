@@ -1,0 +1,4 @@
+.card {
+  padding: clamp(1.6rem, 1.07rem + 0.69vw, 2.4rem);
+  margin: clamp(0.8rem, 0.53rem + 0.56vw, 1.6rem);
+}

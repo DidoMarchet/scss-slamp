@@ -1,0 +1,23 @@
+@use 'scss-slamp' as *;
+
+.cases {
+  px: slamp(16px, 24px);
+  two-values: slamp(25px, 50px) slamp(50px, 75px);
+  rem: slamp(1.25rem, 2.75rem, 768px, 1920px);
+  vw: slamp(5vw, 15vw);
+  percent: slamp(10%, 20%);
+  unitless: slamp(16, 24);
+  zero: slamp(0px, 20px);
+  equal: slamp(16px, 16px);
+  odd: slamp(13px, 17px);
+  tiny: slamp(1px, 2px);
+  flat: slamp(100px, 101px);
+  negative: slamp(-60px, -40px);
+  decreasing: slamp(20px, 10px);
+  negative-decreasing: slamp(-40px, -60px, 768px);
+  min-limit: slamp(16px, 60px, 640px);
+  both-limits: slamp(16px, 48px, 480px, 1440px);
+  rem-limits: slamp(16px, 48px, 30rem, 90rem);
+  digits: slamp(16px, 24px, $digits: 4);
+  in-calc: calc(#{slamp(16px, 24px)} * -1);
+}

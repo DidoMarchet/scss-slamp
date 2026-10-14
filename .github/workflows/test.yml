@@ -1,0 +1,28 @@
+# Checks that the CSS stays the same as the snapshots, on the oldest Sass used by
+# known sites and on the latest one. The weekly run catches a new Sass release that
+# deprecates something the library uses, before the sites notice it.
+name: Test
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sass: ["1.77.8", "latest"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: npm install --no-save sass@${{ matrix.sass }}
+      - run: npm run build
+      - run: npm test
